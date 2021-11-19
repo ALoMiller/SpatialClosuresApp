@@ -1,0 +1,13 @@
+name: spatialclosuresapp
+title: SpatialClosuresApp
+username: alicia.miller
+account: alicia.miller
+server: connect.fisheries.noaa.gov
+hostUrl: https://connect.fisheries.noaa.gov/__api__
+appId: 73
+bundleId: 229
+url: https://connect.fisheries.noaa.gov/content/8c84b1e5-3e4f-41f4-b784-2a3f20cce5ac/
+when: 1637347637.58551
+lastSyncTime: 1637347637.58551
+asMultiple: FALSE
+asStatic: FALSE
