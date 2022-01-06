@@ -10,13 +10,14 @@ ui <-
     ),
     fluidRow(
       column(2, #these columns are based on Bootstrap 12-wide grid and must add up to 12 within a fluid Row
+             tags$div(tags$style(HTML( ".dropdown-menu{z-index:10000 !important;}"))),
              wellPanel(
                dateRangeInput("dates", label = h4("Date range"),
-                              start= '2021-01-01'),
-               # selectInput("geartype", "Select gear type:",
-               #             choices =  c("GILLNET','TRAP/POT"), selected = NULL, multiple =TRUE),
+                              start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
+               selectInput("geartype", "Select gear type:",
+                           choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
                selectInput("region", "Select region(s):",
-                           unique(sc.g2$region),
+                           unique(sc.g3$region),
                            selected = NULL, multiple = TRUE),
                actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                )),
@@ -42,29 +43,57 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$runBtn,{
+    #clear any previous shapefiles selected
+    leafletProxy("base_map") %>%
+      clearShapes() %>% clearMarkers %>% clearPopups()
+      
     date.range <- input$dates
-    jul.range <- as.numeric(format(date.range, "%j")) #converts shiny inpute date range into julian days
+    jul.range <- as.numeric(format(date.range, "%j")) #converts shiny input date range into julian days
     print(jul.range[1])
     print(jul.range[2])
-    sc.g2sub <- sc.g2[sc.g2$region %in% input$region,]
-    # sc.g2sub <- sc.g2 %>%
-    #   filter('region' %in% input$region)# &
-                        #'day_of_the_year_range_1_1' >= jul.range[1] & 
-                        #'day_of_the_year_range_1_2' <= jul.range[2])
-    print(head(sc.g2sub))
+    if(jul.range[1]>jul.range[2]){
+      days <- c(seq(1,jul.range[2]),
+        seq(jul.range[1],365))
+    } else {
+      days <- seq(jul.range[1],jul.range[2])
+    }
+    #subset closures by overlap of days
+    ind <- sapply(ClosureDays,function(x) any(days %in% x))
+    namesClosures <- names(ClosureDays[which(ind)])
+    #subset closures by geartype - this could probably be simplified
+    if(input$geartype == 'GILLNET') {
+    gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),27]
+    } 
+    if(input$geartype == 'TRAP/POT'){
+    gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),27]
+    }
+    if(input$geartype == 'GILLNET & TRAP/POT') {
+    gearsub <- sc.g3$shapename
+    }
+      
+    print(input$geartype)
+    #subset data by various inputs
+    sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
+                        sc.g3$shapename %in% namesClosures &
+                        sc.g3$shapename %in% gearsub,]
+    print(length(namesClosures))
+    print(head(sc.g3sub))
   
     #if statement here to determine which polygons to add to the leaflet map
-    for(i in unique(sc.g2sub$shapefile)){
+    for(k in sc.g3sub$shapename){
       leafletProxy("base_map") %>%
-      # clearShapes() %>% clearMarkers %>% clearPopups() %>%
+       #clearShapes() %>% clearMarkers %>% clearPopups() %>%
       # 
       
-        addPolygons(data = shapes[[i]],
+        addPolygons(data = shapes[[sc.g3$shapefile[sc.g3$shapename==k]]],
                            stroke = TRUE, color = '#5a5a5a', opacity = 1.0,
                            weight = 0.5, fillColor = "#dcdcdc", fillOpacity = 0.3, 
-                           popup =  paste("Closure period: ",sc.g2sub$closure_period[sc.g2$shapefile==i], "<br>",
-                                          "Applies to: ",sc.g2sub$applies_to[sc.g2$shapefile==i], "<br>",
-                                          "Exemption: ",sc.g2sub$exempted_gear_fishery[sc.g2$shapefile==i]))# %>%
+                           popup =  paste("Area Name: ",sc.g3sub$shapefile[sc.g3sub$shapename==k], "<br>",
+                                          "Region: ",sc.g3sub$region[sc.g3sub$shapename==k], "<br>",
+                                          "Closure period: ",sc.g3sub$closure_period[sc.g3sub$shapename==k], "<br>",
+                                          "Gear Type: ",sc.g3sub$gear_type[sc.g3sub$shapename==k], "<br>",
+                                          "Applies to: ",sc.g3sub$applies_to[sc.g3sub$shapename==k], "<br>",
+                                          "Exemption: ",sc.g3sub$exempted_gear_fishery[sc.g3sub$shapename==k]))# %>%
           
           
         }

@@ -15,4 +15,61 @@ sc.g2$n_times <- stringr::str_count(sc.g2$day_of_the_year_range,'-')
 sc.g2 <- splitstackshape::cSplit(sc.g2, 'day_of_the_year_range_1', sep=c("-"), drop=F)
 sc.g2 <- splitstackshape::cSplit(sc.g2, 'day_of_the_year_range_2', sep=c("-"), drop=F)
 sc.g2 <- splitstackshape::cSplit(sc.g2, 'day_of_the_year_range_3', sep=c("-"), drop=F)
+
+sc.g3 <- sc.g2 %>% 
+  dplyr::group_by(shapefile) %>% 
+  dplyr::mutate(shapename=paste0(shapefile,seq(n()))) %>%
+  as.data.frame()
+
+ClosureDays <- list()
+for(j in sc.g3$shapename){
+#1 year ranges
+if(is.na(sc.g3$day_of_the_year_range_2[sc.g3$shapename==j]) & is.na(sc.g3$day_of_the_year_range_3[sc.g3$shapename==j])){
+  if(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]){
+    ClosureDays[[j]] <- c(seq(1,sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]),
+                               seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],365))
+  } else {
+    ClosureDays[[j]] <- seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j])
+  }
+}
+#2 year ranges
+if(!is.na(sc.g3$day_of_the_year_range_2[sc.g3$shapename==j]) & is.na(sc.g3$day_of_the_year_range_3[sc.g3$shapename==j])){
+  if(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]){
+    r1 <- c(seq(1,sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]),
+            seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],365))
+  } else {
+    r1 <- seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j])
+  }
+  if(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j]){
+    r2 <- c(seq(1,sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j]),
+            seq(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j],365))
+  } else {
+    r2 <- seq(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j])
+  }
+  ClosureDays[[j]] <- c(r1,r2)
+}
+#3 year ranges
+if(!is.na(sc.g3$day_of_the_year_range_2[sc.g3$shapename==j]) & !is.na(sc.g3$day_of_the_year_range_3[sc.g3$shapename==j])){
+  if(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]){
+    r1 <- c(seq(1,sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j]),
+            seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],365))
+  } else {
+    r1 <- seq(sc.g3$day_of_the_year_range_1_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_1_2[sc.g3$shapename==j])
+  }
+  if(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j]){
+    r2 <- c(seq(1,sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j]),
+            seq(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j],365))
+  } else {
+    r2 <- seq(sc.g3$day_of_the_year_range_2_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_2_2[sc.g3$shapename==j])
+  }
+  if(sc.g3$day_of_the_year_range_3_1[sc.g3$shapename==j]>sc.g3$day_of_the_year_range_3_2[sc.g3$shapename==j]){
+    r3 <- c(seq(1,sc.g3$day_of_the_year_range_3_2[sc.g3$shapename==j]),
+            seq(sc.g3$day_of_the_year_range_3_1[sc.g3$shapename==j],365))
+  } else {
+    r3 <- seq(sc.g3$day_of_the_year_range_3_1[sc.g3$shapename==j],sc.g3$day_of_the_year_range_3_2[sc.g3$shapename==j])
+  }
+  ClosureDays[[j]] <- c(r1,r2,r3)
+}
+}
+
 save.image("PreFormattedData.RData")
