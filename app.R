@@ -1,36 +1,54 @@
 load("PreFormattedData.RData")
 library(shiny)
+library(shinydashboard)
 library(leaflet)
 library(magrittr)
+library(collapsibleTree)
+
+## Dendrogram Setup: 
+all_closures <- read.csv("closures_categories3.csv")
+# building colors list
+colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
+colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
+
+## UI --------------------------------------------------------------------------------------
 ui <- 
   fluidPage(
-    titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Spatial Closures'),
+    titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Decision Support Tool Trap/Pot and Gillnet Spatial Closures'),
                tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.png")
                )
     ),
-    fluidRow(
-      column(2, #these columns are based on Bootstrap 12-wide grid and must add up to 12 within a fluid Row
-             tags$div(tags$style(HTML( ".dropdown-menu{z-index:10000 !important;}"))),
-             wellPanel(
-               dateRangeInput("dates", label = h4("Date range"),
-                              start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
-               selectInput("geartype", "Select gear type:",
-                           choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
-               selectInput("region", "Select region(s):",
-                           unique(sc.g3$region),
-                           selected = NULL, multiple = TRUE),
-               actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
-               )),
-      column(10,
-             tabsetPanel(
-               tabPanel("Spatial Closures Map",
+      tabsetPanel(
+        tabPanel("Spatial Closures Map",
+                 tags$div(tags$style(HTML( ".dropdown-menu{z-index:10000 !important;}"))),
+                 fluidPage(
+                   fluidRow(
+                     column(2, 
+                       br(),
+                       wellPanel(
+                       dateRangeInput("dates", label = h4("Date range"),
+                                      start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
+                       selectInput("geartype", "Select gear type:",
+                                   choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
+                       selectInput("region", "Select region(s):",
+                                   unique(sc.g3$region), selected = NULL, multiple = TRUE),
+                       actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
+                       )),
+                     column(10,
                         br(),
                         shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'primary',
-                                            leafletOutput('base_map',width="100%",height="80vh"))),
-               tabPanel("Alessandra's Dendrogram",
-                        br())
-             ))
-))
+                                            leafletOutput('base_map',width="100%",height="80vh")))
+                        )
+                        )),
+        tabPanel("Dendrogram",
+                 br(),
+                 collapsibleTreeOutput("plot", height = "500px"))
+             )
+  )
+
+
+
+## Server-----------------------------------------------------------------------------------
 server <- function(input, output, session) {
   ###### LEAFLET BASE MAP for when app initially loads  
   output$base_map = renderLeaflet({
@@ -99,9 +117,26 @@ server <- function(input, output, session) {
         }
       
       
-       
   })
+
+  
+  # building dendrogram 
+  output$plot <- renderCollapsibleTree({
+    collapsibleTree(
+    all_closures,
+    hierarchy = c("GearType", "First", "Second", "Third", "Fourth", "Fifth"),
+    root = "All Closures", 
+    attribute = "leafCount", tooltip=F, 
+    width = 1400, height = 700, fontSize = 12,
+    fill = colorslist,
+    fillByLevel = TRUE
+  )
+})
+
 }
+
+
+
 
 shinyApp(ui, server)
   
