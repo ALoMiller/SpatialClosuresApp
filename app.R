@@ -5,13 +5,15 @@ library(leaflet)
 library(magrittr)
 library(collapsibleTree)
 
+
 ## Dendrogram Setup: 
-all_closures <- read.csv("closures_categories3.csv")
+all_closures <- read.csv("closures_categories_final.csv")
 # building colors list
 colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
 colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
 
-## UI --------------------------------------------------------------------------------------
+
+## UI ------------------------------------------------------------------------------
 ui <- 
   fluidPage(
     titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Decision Support Tool Trap/Pot and Gillnet Spatial Closures'),
@@ -48,7 +50,7 @@ ui <-
 
 
 
-## Server-----------------------------------------------------------------------------------
+## Server---------------------------------------------------------------------------
 server <- function(input, output, session) {
   ###### LEAFLET BASE MAP for when app initially loads  
   output$base_map = renderLeaflet({
@@ -115,7 +117,6 @@ server <- function(input, output, session) {
           
           
         }
-      
       
   })
 
