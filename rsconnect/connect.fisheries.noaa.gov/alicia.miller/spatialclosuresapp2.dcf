@@ -5,9 +5,9 @@ account: alicia.miller
 server: connect.fisheries.noaa.gov
 hostUrl: https://connect.fisheries.noaa.gov/__api__
 appId: 86
-bundleId: 268
+bundleId: 306
 url: https://connect.fisheries.noaa.gov/content/cf2cc415-0470-4e13-ae5b-1e288174ea0f/
-when: 1641487648.2216
-lastSyncTime: 1641487648.2216
+when: 1643915195.05739
+lastSyncTime: 1643915195.05739
 asMultiple: FALSE
 asStatic: FALSE

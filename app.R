@@ -5,13 +5,15 @@ library(leaflet)
 library(magrittr)
 library(collapsibleTree)
 
+
 ## Dendrogram Setup: 
-all_closures <- read.csv("closures_categories3.csv")
+all_closures <- read.csv("closures_categories_final.csv")
 # building colors list
 colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
 colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
 
-## UI --------------------------------------------------------------------------------------
+
+## UI ------------------------------------------------------------------------------
 ui <- 
   fluidPage(
     titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Decision Support Tool Trap/Pot and Gillnet Spatial Closures'),
@@ -23,7 +25,7 @@ ui <-
                  tags$div(tags$style(HTML( ".dropdown-menu{z-index:10000 !important;}"))),
                  fluidPage(
                    fluidRow(
-                     column(2, 
+                     column(3, 
                        br(),
                        wellPanel(
                        dateRangeInput("dates", label = h4("Date range"),
@@ -34,7 +36,7 @@ ui <-
                                    unique(sc.g3$region), selected = NULL, multiple = TRUE),
                        actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
-                     column(10,
+                     column(9,
                         br(),
                         shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'primary',
                                             leafletOutput('base_map',width="100%",height="80vh")))
@@ -48,7 +50,7 @@ ui <-
 
 
 
-## Server-----------------------------------------------------------------------------------
+## Server---------------------------------------------------------------------------
 server <- function(input, output, session) {
   ###### LEAFLET BASE MAP for when app initially loads  
   output$base_map = renderLeaflet({
@@ -80,10 +82,10 @@ server <- function(input, output, session) {
     namesClosures <- names(ClosureDays[which(ind)])
     #subset closures by geartype - this could probably be simplified
     if(input$geartype == 'GILLNET') {
-    gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),27]
+    gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
     } 
     if(input$geartype == 'TRAP/POT'){
-    gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),27]
+    gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
     }
     if(input$geartype == 'GILLNET & TRAP/POT') {
     gearsub <- sc.g3$shapename
@@ -105,7 +107,7 @@ server <- function(input, output, session) {
       
         addPolygons(data = shapes[[sc.g3$shapefile[sc.g3$shapename==k]]],
                            stroke = TRUE, color = '#5a5a5a', opacity = 1.0,
-                           weight = 0.5, fillColor = "#dcdcdc", fillOpacity = 0.3, 
+                           weight = 0.5, fillColor = "#dcdcdc", fillOpacity = 0.3, #fill=FALSE,
                            popup =  paste("Area Name: ",sc.g3sub$shapefile[sc.g3sub$shapename==k], "<br>",
                                           "Region: ",sc.g3sub$region[sc.g3sub$shapename==k], "<br>",
                                           "Closure period: ",sc.g3sub$closure_period[sc.g3sub$shapename==k], "<br>",
@@ -115,7 +117,6 @@ server <- function(input, output, session) {
           
           
         }
-      
       
   })
 
