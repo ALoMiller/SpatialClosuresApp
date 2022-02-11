@@ -102,6 +102,7 @@ server <- function(input, output, session) {
    if(input$method %in% c('Date Range','Region')){  
       #subset closures by geartype to be used in Date Range and Region options- this could probably be simplified
       print(input$geartype)
+      print(input$region)
       if(input$geartype == 'GILLNET') {
         gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
       } 
@@ -125,12 +126,14 @@ server <- function(input, output, session) {
         #subset closures by overlap of days
         ind <- sapply(ClosureDays,function(x) any(days %in% x))
         namesClosures <- names(ClosureDays[which(ind)])
+        print(input$region)
         sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
                             sc.g3$shapename %in% namesClosures &
                             sc.g3$shapename %in% gearsub,]
         print(length(namesClosures))
       }
       if(input$method=='Region'){
+        print(input$region)
         sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
                             sc.g3$shapename %in% gearsub,]
         }
