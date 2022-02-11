@@ -9,8 +9,8 @@ library(viridis)
 ## Dendrogram Setup: 
 all_closures <- read.csv("closures_categories_final.csv")
 # building colors list
-#colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
-#colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
+colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
+colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
 #add a palette for the shapefiles and show the legend on the base map
 pal <-  colorFactor(palette = viridis_pal(option='inferno')(6), domain = c("Sea Turtles", "Marine Mammal", 
                                                      "New Marine Mammal", "Fishery", "Habitat", "State"))
@@ -29,14 +29,14 @@ method.tabs <- tabsetPanel(
                        choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
            selectInput("region", "Select region(s):",
                        unique(sc.g3$region), selected = NULL, multiple = TRUE)
-  ),
-  tabPanel("Region",
-           selectInput("region", "Select region(s):",
-                       unique(sc.g3$region), selected = NULL, multiple = TRUE),
-           selectInput("geartype", "Select gear type:",
-                       choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
-           
-  )
+  )#,
+  # tabPanel("Region",
+  #          selectInput("region", "Select region(s):",
+  #                      unique(sc.g3$region), selected = NULL, multiple = TRUE),
+  #          selectInput("geartype", "Select gear type:",
+  #                      choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
+  #          
+  # )
 )
 
 ## UI ------------------------------------------------------------------------------
@@ -55,7 +55,8 @@ ui <-
                        br(),
                        wellPanel(
                          selectInput("method", "Display closed areas by:",
-                                     choices = c("Closure Name","Date Range","Region")),
+                                     #choices = c("Closure Name","Date Range","Region")),
+                                     choices = c("Closure Name","Date Range")),
                          method.tabs,
                          actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
@@ -95,12 +96,13 @@ server <- function(input, output, session) {
     leafletProxy("base_map") %>%
       clearShapes() %>% clearMarkers %>% clearPopups()
   
-   if(input$method=='Closure Name'){
+   if(input$method == 'Closure Name'){
       sc.g3sub <- sc.g3[sc.g3$area %in% input$area,]
       }
       
-   if(input$method %in% c('Date Range','Region')){  
-      #subset closures by geartype to be used in Date Range and Region options- this could probably be simplified
+   #if(input$method %in% c('Date Range','Region')){  
+   if(input$method == 'Date Range'){  
+        #subset closures by geartype to be used in Date Range and Region options- this could probably be simplified
       print(input$geartype)
       print(input$region)
       if(input$geartype == 'GILLNET') {
@@ -132,11 +134,11 @@ server <- function(input, output, session) {
                             sc.g3$shapename %in% gearsub,]
         print(length(namesClosures))
       }
-      if(input$method=='Region'){
-        print(input$region)
-        sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
-                            sc.g3$shapename %in% gearsub,]
-        }
+      # if(input$method=='Region'){
+      #   print(input$region)
+      #   sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
+      #                       sc.g3$shapename %in% gearsub,]
+      #   }
       print(sc.g3sub[1:5,c(1,2,4,11)])
    }
   #Plot Leaflet Map shapefiles in a loop
