@@ -9,11 +9,35 @@ library(viridis)
 ## Dendrogram Setup: 
 all_closures <- read.csv("closures_categories_final.csv")
 # building colors list
-colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
-colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
+#colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
+#colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
 #add a palette for the shapefiles and show the legend on the base map
 pal <-  colorFactor(palette = viridis_pal(option='inferno')(6), domain = c("Sea Turtles", "Marine Mammal", 
                                                      "New Marine Mammal", "Fishery", "Habitat", "State"))
+## Make dynamic ui for method of closure selection:
+method.tabs <- tabsetPanel(
+  id = "params",
+  type = "hidden",
+  tabPanel("Closure Name",
+           selectInput("area", "Select closed area(s):",
+                       sc.g3$area, selected = NULL, multiple = TRUE)
+  ),
+  tabPanel("Date Range", 
+           dateRangeInput("dates", label = h5(strong("Date range:")),
+                          start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
+           selectInput("geartype", "Select gear type:",
+                       choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
+           selectInput("region", "Select region(s):",
+                       unique(sc.g3$region), selected = NULL, multiple = TRUE)
+  ),
+  tabPanel("Region",
+           selectInput("region", "Select region(s):",
+                       unique(sc.g3$region), selected = NULL, multiple = TRUE),
+           selectInput("geartype", "Select gear type:",
+                       choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
+           
+  )
+)
 
 ## UI ------------------------------------------------------------------------------
 ui <- 
@@ -30,13 +54,10 @@ ui <-
                      column(3, 
                        br(),
                        wellPanel(
-                       dateRangeInput("dates", label = h4("Date range"),
-                                      start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
-                       selectInput("geartype", "Select gear type:",
-                                   choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
-                       selectInput("region", "Select region(s):",
-                                   unique(sc.g3$region), selected = NULL, multiple = TRUE),
-                       actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
+                         selectInput("method", "Display closed areas by:",
+                                     choices = c("Closure Name","Date Range","Region")),
+                         method.tabs,
+                         actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
                      column(9,
                         br(),
@@ -58,7 +79,6 @@ server <- function(input, output, session) {
   output$base_map = renderLeaflet({
     # Makes a leaflet map to visualize management areas
     
-    
     leaflet() %>%
       setView(lng = -68.73742, lat = 42.31386, zoom = 6) %>%
       addProviderTiles(providers$Esri.OceanBasemap) %>%
@@ -66,51 +86,60 @@ server <- function(input, output, session) {
       addLegend(pal = pal, opacity = 0.3, values = c("Sea Turtles", "Marine Mammal", 
                                                      "New Marine Mammal", "Fishery", "Habitat", "State"))
   })
-
-  observeEvent(input$runBtn,{
+  
+  observeEvent(input$method, {
+    updateTabsetPanel(inputId = "params", selected = input$method)
+  }) 
+    observeEvent(input$runBtn,{
     #clear any previous shapefiles selected
     leafletProxy("base_map") %>%
       clearShapes() %>% clearMarkers %>% clearPopups()
+  
+   if(input$method=='Closure Name'){
+      sc.g3sub <- sc.g3[sc.g3$area %in% input$area,]
+      }
       
-    date.range <- input$dates
-    jul.range <- as.numeric(format(date.range, "%j")) #converts shiny input date range into julian days
-    print(jul.range[1])
-    print(jul.range[2])
-    if(jul.range[1]>jul.range[2]){
-      days <- c(seq(1,jul.range[2]),
-        seq(jul.range[1],365))
-    } else {
-      days <- seq(jul.range[1],jul.range[2])
-    }
-    #subset closures by overlap of days
-    ind <- sapply(ClosureDays,function(x) any(days %in% x))
-    namesClosures <- names(ClosureDays[which(ind)])
-    #subset closures by geartype - this could probably be simplified
-    if(input$geartype == 'GILLNET') {
-    gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
-    } 
-    if(input$geartype == 'TRAP/POT'){
-    gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
-    }
-    if(input$geartype == 'GILLNET & TRAP/POT') {
-    gearsub <- sc.g3$shapename
-    }
-      
-    print(input$geartype)
-    #subset data by various inputs
-    sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
-                        sc.g3$shapename %in% namesClosures &
-                        sc.g3$shapename %in% gearsub,]
-    print(length(namesClosures))
-    print(head(sc.g3sub))
-    
-
-    #if statement here to determine which polygons to add to the leaflet map
-    for(k in sc.g3sub$shapename){
+   if(input$method %in% c('Date Range','Region')){  
+      #subset closures by geartype to be used in Date Range and Region options- this could probably be simplified
+      print(input$geartype)
+      if(input$geartype == 'GILLNET') {
+        gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
+      } 
+      if(input$geartype == 'TRAP/POT'){
+        gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
+      }
+      if(input$geartype == 'GILLNET & TRAP/POT') {
+        gearsub <- sc.g3$shapename
+      }
+      if(input$method=='Date Range'){
+        date.range <- input$dates
+        jul.range <- as.numeric(format(date.range, "%j")) #converts shiny input date range into julian days
+        print(jul.range[1])
+        print(jul.range[2])
+        if(jul.range[1]>jul.range[2]){
+          days <- c(seq(1,jul.range[2]),
+            seq(jul.range[1],365))
+        } else {
+          days <- seq(jul.range[1],jul.range[2])
+        }
+        #subset closures by overlap of days
+        ind <- sapply(ClosureDays,function(x) any(days %in% x))
+        namesClosures <- names(ClosureDays[which(ind)])
+        sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
+                            sc.g3$shapename %in% namesClosures &
+                            sc.g3$shapename %in% gearsub,]
+        print(length(namesClosures))
+      }
+      if(input$method=='Region'){
+        sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
+                            sc.g3$shapename %in% gearsub,]
+        }
+      print(sc.g3sub[1:5,c(1,2,4,11)])
+   }
+  #Plot Leaflet Map shapefiles in a loop
+   for(k in sc.g3sub$shapename){
       leafletProxy("base_map") %>%
-       #clearShapes() %>% clearMarkers %>% clearPopups() %>%
-      # 
-      
+       
         addPolygons(data = shapes[[sc.g3$shapefile[sc.g3$shapename==k]]],
                            stroke = TRUE, color = ~pal(sc.g3sub$reg_type[sc.g3sub$shapename==k]), 
                             opacity = 0.5,
@@ -124,12 +153,8 @@ server <- function(input, output, session) {
                                           "Exemption: ",sc.g3sub$exempted_gear_fishery[sc.g3sub$shapename==k]))#%>%
 
     }
-    #leafletProxy("base_map")  %>%
-      #addLegend(pal = pal, values = c("Sea Turtles", "Marine Mammal", 
-                                                     #"New Marine Mammal", "Fishery", "Habitat", "State"))
-  })
-
   
+      })
   # building dendrogram 
   output$plot <- renderCollapsibleTree({
     collapsibleTree(
