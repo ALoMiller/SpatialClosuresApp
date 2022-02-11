@@ -81,7 +81,7 @@ server <- function(input, output, session) {
     # Makes a leaflet map to visualize management areas
     
     leaflet() %>%
-      setView(lng = -68.73742, lat = 42.31386, zoom = 6) %>%
+      setView(lng = -68.73742, lat = 35, zoom = 5) %>%
       addProviderTiles(providers$Esri.OceanBasemap) %>%
       addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250)) %>%
       addLegend(pal = pal, opacity = 0.3, values = c("Sea Turtles", "Marine Mammal", 
