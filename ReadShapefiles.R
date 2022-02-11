@@ -1,6 +1,11 @@
 #read in google sheets Spatial Closure
 library(magrittr)
-sc.g <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1GqDY4458WD49Ub1AXrcswr32R8GNbuYMYhp0HVXLg5o/edit#gid=1463226',
+library(googlesheets4)
+
+#If you have trouble getting access, use the following code and select 0 to get a new token - make sure to check the third box:
+#gs4_auth()
+
+sc.g <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1GqDY4458WD49Ub1AXrcswr32R8GNbuYMYhp0HVXLg5o/edit?usp=sharing',
                                   skip=1)
 sc.g <- janitor::clean_names(sc.g)
 sc.g1 <- sc.g %>%
@@ -52,3 +57,4 @@ if(!is.na(sc.g3$day_of_the_year_range_2[sc.g3$shapename==j])){
 }
 
 save.image("PreFormattedData.RData")
+

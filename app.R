@@ -56,10 +56,16 @@ server <- function(input, output, session) {
   output$base_map = renderLeaflet({
     # Makes a leaflet map to visualize management areas
     
+    #add a palette for the shapefiles and show the legend on the base map
+    pal <-  colorFactor(palette = rainbow(6), domain = c("Sea Turtles", "Marine Mammal", 
+                                                     "New Marine Mammal", "Fishery", "Habitat", "State"))
+    
     leaflet() %>%
       setView(lng = -68.73742, lat = 42.31386, zoom = 6) %>%
       addProviderTiles(providers$Esri.OceanBasemap) %>%
-      addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250))
+      addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250)) %>%
+      addLegend(pal = pal, values = c("Sea Turtles", "Marine Mammal", 
+                                                     "New Marine Mammal", "Fishery", "Habitat", "State"))
   })
 
   observeEvent(input$runBtn,{
@@ -98,7 +104,8 @@ server <- function(input, output, session) {
                         sc.g3$shapename %in% gearsub,]
     print(length(namesClosures))
     print(head(sc.g3sub))
-  
+    
+
     #if statement here to determine which polygons to add to the leaflet map
     for(k in sc.g3sub$shapename){
       leafletProxy("base_map") %>%
@@ -106,18 +113,21 @@ server <- function(input, output, session) {
       # 
       
         addPolygons(data = shapes[[sc.g3$shapefile[sc.g3$shapename==k]]],
-                           stroke = TRUE, color = '#5a5a5a', opacity = 1.0,
-                           weight = 0.5, fillColor = "#dcdcdc", fillOpacity = 0.3, #fill=FALSE,
+                           stroke = TRUE, color = ~pal(sc.g3sub$reg_type[sc.g3sub$shapename==k]), 
+                            opacity = 0.5,
+                           weight = 0.5, #fillColor = ~pal(reg_type), 
+                          fillOpacity = 0.3, #fill=FALSE,
                            popup =  paste("Area Name: ",sc.g3sub$shapefile[sc.g3sub$shapename==k], "<br>",
                                           "Region: ",sc.g3sub$region[sc.g3sub$shapename==k], "<br>",
                                           "Closure period: ",sc.g3sub$closure_period[sc.g3sub$shapename==k], "<br>",
                                           "Gear Type: ",sc.g3sub$gear_type[sc.g3sub$shapename==k], "<br>",
-                                          "Applies to: ",sc.g3sub$applies_to[sc.g3sub$shapename==k], "<br>",
-                                          "Exemption: ",sc.g3sub$exempted_gear_fishery[sc.g3sub$shapename==k]))# %>%
-          
-          
-        }
-      
+                                          "RegType: ",sc.g3sub$reg_type[sc.g3sub$shapename==k], "<br>",
+                                          "Exemption: ",sc.g3sub$exempted_gear_fishery[sc.g3sub$shapename==k]))#%>%
+
+    }
+    #leafletProxy("base_map")  %>%
+      #addLegend(pal = pal, values = c("Sea Turtles", "Marine Mammal", 
+                                                     #"New Marine Mammal", "Fishery", "Habitat", "State"))
   })
 
   
