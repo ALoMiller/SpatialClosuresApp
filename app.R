@@ -36,7 +36,11 @@ method.tabs <- tabsetPanel(
            selectInput("geartype2", "Select gear type:",
                        choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
 
-  )
+  ),
+  tabPanel("Regulation",
+           selectInput("regtype", "Select regulation type:",
+                       sc.g3$reg_type, selected = NULL, multiple = TRUE)
+  ),
 )
 
 ## UI ------------------------------------------------------------------------------
@@ -55,7 +59,7 @@ ui <-
                        br(),
                        wellPanel(
                          selectInput("method", "Display closed areas by:",
-                                     choices = c("Closure","Date","Region")),
+                                     choices = c("Closure","Date","Region","Regulation")),
                                      method.tabs,
                          actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
@@ -83,7 +87,7 @@ server <- function(input, output, session) {
       setView(lng = -68.73742, lat = 35, zoom = 5) %>%
       addProviderTiles(providers$Esri.OceanBasemap) %>%
       addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250)) %>%
-      addLegend(pal = pal, opacity = 0.3, values = c("Sea Turtles", "Marine Mammal", 
+      addLegend(pal = pal, opacity = 0.4, values = c("Sea Turtles", "Marine Mammal", 
                                                      "New Marine Mammal", "Fishery", "Habitat", "State"))
   })
   
@@ -128,7 +132,11 @@ server <- function(input, output, session) {
                  Region =  sc.g3 %>%
                    dplyr::filter(region %in% input$region2 & # by region
                                    shapename %in% gearsub2)
-                 }
+                 },
+               Regulation = {
+                 sc.g3 %>%
+                   dplyr::filter(reg_type %in% input$regtype)
+               }
         )
       
     #Plot Leaflet Map shapefiles in a loop
@@ -137,7 +145,7 @@ server <- function(input, output, session) {
        
         addPolygons(data = shapes[[sc.g3$shapefile[sc.g3$shapename==k]]],
                            stroke = TRUE, color = ~pal(sc.g3sub$reg_type[sc.g3sub$shapename==k]), 
-                            opacity = 0.5,
+                           opacity = 0.5,
                            weight = 0.5, #fillColor = ~pal(reg_type), 
                           fillOpacity = 0.3, #fill=FALSE,
                            popup =  paste("Area Name: ",sc.g3sub$shapefile[sc.g3sub$shapename==k], "<br>",
