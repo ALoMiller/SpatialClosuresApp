@@ -46,9 +46,15 @@ method.tabs <- tabsetPanel(
 ## UI ------------------------------------------------------------------------------
 ui <- 
   fluidPage(
+    tags$style("
+              body {
+    -moz-transform: scale(0.9, 0.9); /* Moz-browsers */
+    zoom: 0.9; /* Other non-webkit browsers */
+    zoom: 90%; /* Webkit browsers */
+}
+              "),
     titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Decision Support Tool Trap/Pot and Gillnet Spatial Closures'),
-               tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.png")
-               )
+               tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.png"))
     ),
       tabsetPanel(
         tabPanel("Spatial Closures Map",
@@ -63,12 +69,29 @@ ui <-
                                      method.tabs,
                          actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
-                     column(9,
+                     column(7,
                         br(),
                         shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'primary',
-                                            leafletOutput('base_map',width="100%",height="80vh")))
-                        )
-                        )),
+                                            leafletOutput('base_map',width="100%",height="80vh"))),
+                     column(2,
+                            br(),
+                        wellPanel(
+                          #Add help text here
+                          h5(strong("Read Me")),
+                          p(  " This application is a tool to display and categorize "
+                              , " closures affecting gillnet and trap/pot fisheries in the Northwest Atlantic "
+                              , " that are implemented in the Decision Support Tool (DST). The "
+                              , a("DST", href="https://www.fisheries.noaa.gov/feature-story/decision-support-tool-helpful-those-finding-ways-reduce-whale-entanglement-fishing", target="_blank")
+                              ," is designed to aid in the decision-making process involved in reducing serious injury "
+                              , " and mortality in the North Atlantic right whale and other large whales at "
+                              , " risk of entanglement. To begin, select a method for subsetting closures "
+                              , " to be displayed in the map. Additional options for each method allow additional "
+                              , " functionality. To display selections on the map click ", strong("SHOW CLOSURES")
+                              , " For a more detailed breakdown of the fishery closures specific "
+                              , " to gear, such as gillnet type and mesh size, click the ", strong("Dendrogram")
+                              , " tab."))
+                            )
+                        ))),
         tabPanel("Dendrogram",
                  br(),
                  collapsibleTreeOutput("plot", height = "500px"))
