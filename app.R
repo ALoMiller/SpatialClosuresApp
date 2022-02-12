@@ -18,25 +18,25 @@ pal <-  colorFactor(palette = viridis_pal(option='inferno')(6), domain = c("Sea 
 method.tabs <- tabsetPanel(
   id = "params",
   type = "hidden",
-  tabPanel("Closure Name",
+  tabPanel("Closure",
            selectInput("area", "Select closed area(s):",
                        sc.g3$area, selected = NULL, multiple = TRUE)
   ),
-  tabPanel("Date Range", 
+  tabPanel("Date", 
            dateRangeInput("dates", label = h5(strong("Date range:")),
                           start=paste0(format(Sys.Date(), "%Y"),'-01-01')),
            selectInput("geartype", "Select gear type:",
                        choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE),
            selectInput("region", "Select region(s):",
                        unique(sc.g3$region), selected = NULL, multiple = TRUE)
-  )#,
-  # tabPanel("Region",
-  #          selectInput("region", "Select region(s):",
-  #                      unique(sc.g3$region), selected = NULL, multiple = TRUE),
-  #          selectInput("geartype", "Select gear type:",
-  #                      choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
-  #          
-  # )
+  ),
+  tabPanel("Region",
+           selectInput("region2", "Select region(s):",
+                       unique(sc.g3$region), selected = NULL, multiple = TRUE),
+           selectInput("geartype2", "Select gear type:",
+                       choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
+
+  )
 )
 
 ## UI ------------------------------------------------------------------------------
@@ -55,9 +55,8 @@ ui <-
                        br(),
                        wellPanel(
                          selectInput("method", "Display closed areas by:",
-                                     #choices = c("Closure Name","Date Range","Region")),
-                                     choices = c("Closure Name","Date Range")),
-                         method.tabs,
+                                     choices = c("Closure","Date","Region")),
+                                     method.tabs,
                          actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
                        )),
                      column(9,
@@ -95,53 +94,44 @@ server <- function(input, output, session) {
     #clear any previous shapefiles selected
     leafletProxy("base_map") %>%
       clearShapes() %>% clearMarkers %>% clearPopups()
-  
-   if(input$method == 'Closure Name'){
-      sc.g3sub <- sc.g3[sc.g3$area %in% input$area,]
-      }
       
-   #if(input$method %in% c('Date Range','Region')){  
-   if(input$method == 'Date Range'){  
-        #subset closures by geartype to be used in Date Range and Region options- this could probably be simplified
-      print(input$geartype)
-      print(input$region)
-      if(input$geartype == 'GILLNET') {
-        gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
-      } 
-      if(input$geartype == 'TRAP/POT'){
-        gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
-      }
-      if(input$geartype == 'GILLNET & TRAP/POT') {
-        gearsub <- sc.g3$shapename
-      }
-      if(input$method=='Date Range'){
-        date.range <- input$dates
-        jul.range <- as.numeric(format(date.range, "%j")) #converts shiny input date range into julian days
-        print(jul.range[1])
-        print(jul.range[2])
-        if(jul.range[1]>jul.range[2]){
-          days <- c(seq(1,jul.range[2]),
-            seq(jul.range[1],365))
-        } else {
-          days <- seq(jul.range[1],jul.range[2])
-        }
-        #subset closures by overlap of days
-        ind <- sapply(ClosureDays,function(x) any(days %in% x))
-        namesClosures <- names(ClosureDays[which(ind)])
-        print(input$region)
-        sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
-                            sc.g3$shapename %in% namesClosures &
-                            sc.g3$shapename %in% gearsub,]
-        print(length(namesClosures))
-      }
-      # if(input$method=='Region'){
-      #   print(input$region)
-      #   sc.g3sub <- sc.g3[sc.g3$region %in% input$region & # by region
-      #                       sc.g3$shapename %in% gearsub,]
-      #   }
-      print(sc.g3sub[1:5,c(1,2,4,11)])
-   }
-  #Plot Leaflet Map shapefiles in a loop
+      sc.g3sub <- 
+        switch(input$method,
+               Closure = {
+                 sc.g3 %>%
+                 dplyr::filter(area %in% input$area)
+                 },
+               Date = {
+                 if(input$geartype == 'GILLNET') gearsub <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
+                 if(input$geartype == 'TRAP/POT') gearsub <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
+                 if(input$geartype == 'GILLNET & TRAP/POT') gearsub <- sc.g3$shapename
+                  
+                  jul.range <- as.numeric(format(input$dates, "%j")) #converts shiny input date range into julian days
+                  if(jul.range[1]>jul.range[2]){
+                    days <- c(seq(1,jul.range[2]),
+                      seq(jul.range[1],365))
+                  } else {
+                    days <- seq(jul.range[1],jul.range[2])
+                  }
+                  #subset closures by overlap of days
+                  ind <- sapply(ClosureDays,function(x) any(days %in% x))
+                  namesClosures <- names(ClosureDays[which(ind)])
+                  Date = sc.g3 %>%
+                    dplyr::filter(region %in% input$region & # by region
+                                    shapename %in% namesClosures &
+                                    shapename %in% gearsub)
+                  },
+               Region = {
+                 if(input$geartype2 == 'GILLNET') gearsub2 <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
+                 if(input$geartype2 == 'TRAP/POT') gearsub2 <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
+                 if(input$geartype2 == 'GILLNET & TRAP/POT') gearsub2 <- sc.g3$shapename
+                 Region =  sc.g3 %>%
+                   dplyr::filter(region %in% input$region2 & # by region
+                                   shapename %in% gearsub2)
+                 }
+        )
+      
+    #Plot Leaflet Map shapefiles in a loop
    for(k in sc.g3sub$shapename){
       leafletProxy("base_map") %>%
        
@@ -160,7 +150,8 @@ server <- function(input, output, session) {
     }
   
       })
-  # building dendrogram 
+  
+    # building dendrogram 
   output$plot <- renderCollapsibleTree({
     collapsibleTree(
     all_closures,
