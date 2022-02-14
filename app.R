@@ -84,10 +84,10 @@ ui <-
                               , a("DST", href="https://www.fisheries.noaa.gov/feature-story/decision-support-tool-helpful-those-finding-ways-reduce-whale-entanglement-fishing", target="_blank")
                               ," is designed to aid in the decision-making process involved in reducing serious injury "
                               , " and mortality in the North Atlantic right whale and other large whales at "
-                              , " risk of entanglement. To begin, select a method for subsetting closures "
-                              , " to be displayed in the map. Additional options for each method allow additional "
+                              , " risk of entanglement from fixed gear fisheries. To begin, select a method for subsetting closures "
+                              , " to be displayed in the map. Additional options for each method allow further "
                               , " functionality. To display selections on the map click ", strong("SHOW CLOSURES")
-                              , " For a more detailed breakdown of the fishery closures specific "
+                              , " . For a more detailed breakdown of the fishery closures specific "
                               , " to gear, such as gillnet type and mesh size, click the ", strong("Dendrogram")
                               , " tab."))
                             )
