@@ -1,4 +1,5 @@
 load("PreFormattedData.RData")
+load("TPData.RData")
 library(shiny)
 library(shinydashboard)
 library(leaflet)
@@ -6,8 +7,9 @@ library(magrittr)
 library(collapsibleTree)
 library(viridis)
 
+
 ## Dendrogram Setup: 
-all_closures <- read.csv("closures_categories_final.csv")
+all_closures <- read.csv("closures_categories6c.csv")
 # building colors list
 colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
 colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
@@ -40,7 +42,23 @@ method.tabs <- tabsetPanel(
   tabPanel("Regulation",
            selectInput("regtype", "Select regulation type:",
                        sc.g3$reg_type, selected = NULL, multiple = TRUE)
+  ))
+
+method.tabs2 <- tabsetPanel(
+  id = "params2",
+  type = "hidden",
+  tabPanel("GILLNET",
+           selectInput("regulation", "Color by:",
+                       choices = c("Seasonal", "Number of nets"), selected = NULL, multiple = FALSE)
   ),
+  tabPanel("TRAP/POT",
+           selectInput("fishery", "Fishery:",
+                       choices = c(#"Lobster and Jonah crab trap/pot", 
+                         "Other trap/pot"), 
+                       selected = NULL, multiple = FALSE),
+           selectInput("regulation2", "Color by:",
+                       choices = c("Trawl length", "Weak buoy line"),
+                       selected = NULL, multiple = FALSE))
 )
 
 ## UI ------------------------------------------------------------------------------
@@ -94,7 +112,26 @@ ui <-
                         ))),
         tabPanel("Dendrogram",
                  br(),
-                 collapsibleTreeOutput("plot", height = "500px"))
+                 collapsibleTreeOutput("plot", height = "500px")),
+        tabPanel("Gear Configurations Map",
+                 br(),
+                 fluidPage(
+                   fluidRow(
+                     column(3,
+                            br(),
+                            wellPanel(
+                              selectInput("geartype3", "Select gear type:",
+                                          choices =  c('GILLNET','TRAP/POT')),
+                              method.tabs2,
+                              actionButton("runBtn2","SHOW AREAS", icon("cogs"),
+                                           style="color: black; background-color: green; border-color: grey")
+                            )
+                     ),
+                     column(7,
+                            br(),
+                            shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'success',
+                                                leafletOutput('base_map2',width="100%",height="80vh")))
+                   )))
              )
   )
 
@@ -113,6 +150,15 @@ server <- function(input, output, session) {
       addLegend(pal = pal, opacity = 0.4, values = c("Sea Turtles", "Marine Mammal", 
                                                      "New Marine Mammal", "Fishery", "Habitat", "State"))
   })
+  
+  output$base_map2 = renderLeaflet({
+    
+    leaflet() %>%
+      setView(lng = -68.73742, lat = 35, zoom = 5) %>%
+      addProviderTiles(providers$Esri.OceanBasemap) %>%
+      addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250))
+  })
+  
   
   observeEvent(input$method, {
     updateTabsetPanel(inputId = "params", selected = input$method)
@@ -186,14 +232,67 @@ server <- function(input, output, session) {
   output$plot <- renderCollapsibleTree({
     collapsibleTree(
     all_closures,
-    hierarchy = c("GearType", "First", "Second", "Third", "Fourth", "Fifth"),
+    hierarchy = c("GearType", "Method", "Mesh", "Closures", "Groundfish"),
     root = "All Closures", 
     attribute = "leafCount", tooltip=F, 
+    linkLength = 170,
     width = 1400, height = 700, fontSize = 12,
-    fill = colorslist,
+    #fill = colorslist,
     fillByLevel = TRUE
   )
 })
+
+  
+observeEvent(input$geartype3, {
+  updateTabsetPanel(inputId = "params2", selected = input$geartype3)
+})
+
+observeEvent(input$runBtn2,{
+
+  gc1sub <- switch(input$geartype3,
+                   'GILLNET' = {
+                     gc1.a = droplevels(gc1[grepl("gill",gc1$gear_type),])
+                   },
+                   'TRAP/POT' = {
+                     gc1.a = droplevels(gc1[grepl("other", gc1$fishery) & 
+                                                grepl("trap",gc1$gear_type),]) 
+                   }
+  )
+  if(input$regulation == "Seasonal") col.by  <- gc1sub$seasonal
+  if(input$regulation == "Number of nets") col.by <- gc1sub$min_string_length
+  if(input$regulation2 == "Trawl length") col.by  <- gc1sub$min_string_length
+  if(input$regulation2 == "Weak buoy line") col.by <- gc1sub$max_buoy_line_strength
+  
+  print(head(gc1sub))
+  print(col.by)
+  #clear any previous shapefiles selected
+  leafletProxy("base_map2") %>%
+    clearShapes() %>% clearMarkers %>% clearPopups() %>% clearControls #clearControls removes the legend so it switches based in input
+  
+  #Plot Leaflet Map shapefiles in a loop
+  for(l in gc1sub$shapename){
+    leafletProxy("base_map2") %>%
+      addPolygons(data = shapes2[[gc1$shapename[gc1$shapename==l]]],
+                  stroke = TRUE, color = ~colorFactor(palette = rainbow(length(unique(col.by))),
+                                                      domain = unique(col.by))(col.by[gc1sub$shapename==l]),
+                  weight = 0.3, 
+                  # fillColor = ~colorFactor(palette = rainbow(10),
+                  # domain = levels(col.by))(col.by[gc1sub$shapename==l]),
+                  fillOpacity = 0.3, #fill=FALSE,
+                  popup =  paste("Area Name: ",gc1sub$area[gc1sub$shapename==l], "<br>",
+                                 "Seasonal Requirements?: ",gc1sub$seasonal[gc1sub$shapename==l], "<br>",
+                                 "Minimum Length: ",gc1sub$min_string_length[gc1sub$shapename==l], "<br>",
+                                 "Maximum Length: ",gc1sub$max_string_length[gc1sub$shapename==l], "<br>",
+                                 "Minimum Weak Link Strength: ",gc1sub$max_weak_link_strength[gc1sub$shapename==l], "<br>",
+                                 "Maximum Line Strength: ",gc1sub$max_buoy_line_strength[gc1sub$shapename==l], "<br>",
+                                 "Twine Size (gillnet): ",gc1sub$twine_size[gc1sub$shapename==l], "<br>",
+                                 "Tie-downs (gillnet): ",gc1sub$tie_downs[gc1sub$shapename==l], "<br>"))
+    
+  }                            
+  leafletProxy("base_map2") %>% addLegend(pal = colorFactor(palette = rainbow(length(unique(col.by))),
+                                                            domain = unique(col.by)), opacity = 0.4, values = unique(col.by))
+})
+
 
 }
 

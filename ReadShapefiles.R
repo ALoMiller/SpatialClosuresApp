@@ -9,7 +9,9 @@ shapes <- list()
 #load all shapefiles from 
 shape.folder <- ('//net.nefsc.noaa.gov/work4/LobsterGroup/Management/RightWhales/DecisionSupportTool/TempShapefiles/')
 for (i in unique(sc.g1$shapefile)){
-  shapes[[i]] <- sf::st_read(paste0(shape.folder,i,'.shp'))
+  shapes[[i]] <- sf::st_read(paste0(shape.folder,i,'.shp')) %>%
+                               sf::st_set_crs(4326) %>%
+                               sf::st_transform(3857)
 }  
 sc.g2 <- splitstackshape::cSplit(sc.g1, 'day_of_the_year_range', sep=c("\n"), drop=F)
 sc.g2$n_times <- stringr::str_count(sc.g2$day_of_the_year_range,'-')

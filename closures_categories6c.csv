@@ -1,0 +1,182 @@
+Index,GearType,Method,Mesh,Closures,Groundfish,Dates,Shapefiles
+1,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,GOM: Cape Cod Bay Restricted Area,,1:120,Cape_Cod_Bay_Restricted_Area
+2,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,GOM/GB: Great South Channel Restricted Gillnet Area,,91:181,Great_South_Channel_Restricted_Gillnet_Area
+3,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,GB: Northeast Canyons and Seamounts Marine National Monument,,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+4,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,SNE: Georges Bank Deep-Sea Coral Protection Area,,1:365,Georges_Bank_CoralProtectionArea
+5,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,MAB: Northern NC State - May 1 - Oct 31,,121:304,bdtrp_N_NC_po
+6,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+7,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,SE: Southeast Restricted Area North,,319:105,Southeast_US_Restricted_Area_North
+8,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,SE: Southeast Restricted Area South,,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+9,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,SE: Georgia State Waters,,1:365,Georgia_statewaters_ALWTRP
+10,1 Gillnet,1.1 Drift + Other,1.1.1 Small Mesh <=5 in.,SE: Florida State Waters,,1:365,Florida_statewaters_ALWTRP
+11,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,GOM: Cape Cod Bay Restricted Area,,1:120,Cape_Cod_Bay_Restricted_Area
+12,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,GOM/GB: Great South Channel Restricted Gillnet Area,,91:181,Great_South_Channel_Restricted_Gillnet_Area
+13,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,GB: Northeast Canyons and Seamounts Marine National Monument,,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+14,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SNE: Mudhole North Management Area - Feb 15 - Mar 15,,46:74,Mudhole_North_Management_Area
+15,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SNE: Mudhole South Management Area - Feb 15 - Mar 15,,32:74,Mudhole_South_Management_Area
+16,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SNE: Georges Bank Deep-Sea Coral Protection Area,,1:365,Georges_Bank_CoralProtectionArea
+17,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+18,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SE: Southeast Restricted Area North,,319:105,Southeast_US_Restricted_Area_North
+19,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SE: Southeast Restricted Area South,,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+20,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SE: Georgia State Waters,,1:365,Georgia_statewaters_ALWTRP
+21,1 Gillnet,1.1 Drift + Other,1.1.2 Medium Mesh 5-7 in.,SE: Florida State Waters,,1:365,Florida_statewaters_ALWTRP
+22,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,GOM: Cape Cod Bay Restricted Area,,1:120,Cape_Cod_Bay_Restricted_Area
+23,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,GOM/GB: Great South Channel Restricted Gillnet Area,,91:181,Great_South_Channel_Restricted_Gillnet_Area
+24,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,GB: Northeast Canyons and Seamounts Marine National Monument,,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+25,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SNE: Georges Bank Deep-Sea Coral Protection Area,,1:365,Georges_Bank_CoralProtectionArea
+26,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SNE: Mudhole North Management Area - Feb 15 - Mar 15,,46:74,Mudhole_North_Management_Area
+27,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SNE: Mudhole South Management Area - Feb 15 - Mar 15,,32:74,Mudhole_South_Management_Area
+28,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SNE: Mudhole North Management Area - Apr 1 - Apr 20,,91:110,Mudhole_North_Management_Area
+29,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SNE: Mudhole South Management Area - Apr 1 - Apr 20,,91:110,Mudhole_South_Management_Area
+30,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+31,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Northern NC State - Apr 15 - Dec 15,,"305:349,
+105:120",bdtrp_N_NC_po
+32,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Large Mesh Gillnet Restricted Waters (red),,1:365,LargeMeshGillnet_AllYear
+33,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Large Mesh Gillnet Restricted Waters (yellow),,75:14,LargeMeshGillnet_Mar16Jan14
+34,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Large Mesh Gillnet Restricted Waters (green),,91:14,LargeMeshGillnet_Apr1Jan14
+35,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Large Mesh Gillnet Restricted Waters (blue),,106:14,LargeMeshGillnet_Apr16Jan14
+36,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Waters off New Jersey Management Area,,91:110,Waters_Off_New_Jersey_Management_Area
+37,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,MAB: Southern Mid-Atlantic Management Area,,46:74,Southern_Mid-Atlantic_Management_Area
+38,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SE: Southern NC State,,105:349,bdtrp_S_NC_po
+39,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SE: Southeast Restricted Area North,,319:105,Southeast_US_Restricted_Area_North
+40,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SE: Southeast Restricted Area South,,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+41,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SE: Georgia State Waters,,1:365,Georgia_statewaters_ALWTRP
+42,1 Gillnet,1.1 Drift + Other,1.1.3 Large Mesh >=7 in.,SE: Florida State Waters,,1:365,Florida_statewaters_ALWTRP
+43,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: GOM Cod Protection I,121:151,GOM_Cod_Protection_I
+44,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: GOM Cod Protection II,152:181,GOM_Cod_Protection_II
+45,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: GOM Cod Protection III,305:31,GOM_Cod_Protection_III
+46,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: GOM Cod Protection IV,274:304,GOM_Cod_Protection_IV
+47,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: GOM Cod Protection V,60:90,GOM_Cod_Protection_V
+48,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: Cashes Ledge Groundfish Closure Area,1:365,CashesLedgeClosure
+49,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: Western GOM Groundfish Closure Area,1:365,Western_GOM_Closure_Area
+50,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM: Cape Cod Bay Restricted Area,1:120,Cape_Cod_Bay_Restricted_Area
+51,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GOM/GB: Great South Channel Restricted Gillnet Area,91:181,Great_South_Channel_Restricted_Gillnet_Area
+52,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GB: Northeast Canyons and Seamounts Marine National Monument,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+53,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,GB: Closed Area II Closure Area,1:365,ClosedAreaII
+54,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,SNE: Georges Bank Deep-Sea Coral Protection Area,1:365,Georges_Bank_CoralProtectionArea
+55,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,MAB: Northern NC State - May 1 - Oct 31,121:304,bdtrp_N_NC_po
+56,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+57,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,SE: Southeast Restricted Area North,319:105,Southeast_US_Restricted_Area_North
+58,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,SE: Southeast Restricted Area South,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+59,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,SE: Georgia State Waters,1:365,Georgia_statewaters_ALWTRP
+60,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.1 Small Mesh,SE: Florida State Waters,1:365,Florida_statewaters_ALWTRP
+61,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.2 Additional Sink Closures,GOM: Stellwagen DHRA,1:365,Stellwagen_DHRA
+62,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,GOM: Northeast Closure Area,227:256,Northeast_Closure_Area
+63,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,GOM: Massachusetts Bay Management Area,60:90,Massachusetts_Bay_Management_Area
+64,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,"GOM: GOM Cod Spawning Protection Area ""whaleback""",91:181,GOM_CodSpawnClosedArea
+65,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,GOM: Winter Massachusetts Bay Spawning Protection Area,305:31,WinterMABay_SpawnProtectionArea
+66,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,GOM: Cashes Ledge Closure Area,32:59,Cashes_Ledge_Closure_Area
+67,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,GB: GB_ClosedAreaISeasonal (North),32:105,GB_ClosedAreaISeasonal
+68,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,SNE: Cape Cod South Closure Area,60:90,Cape_Cod_South_Closure_Area
+69,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.3 Additional Multi Species Closures,SNE: Spring Massachusetts Bay Spawning Protection Area,105:120,Block125
+70,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.4 Additional Groundfish Closures,SNE: Massachusetts Bay from Plymouth to Marblehead,91:120,MA_State_Groundfish_Apr_PlytoMarblehead
+71,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.4 Additional Groundfish Closures,SNE: May in Massachusetts Bay from Boston to the New Hampshire Border,121:151,MA_State_Groundfish_May_BostoNH
+72,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.4 Additional Groundfish Closures,SNE: June in Upper Massachusetts Bay and Ipswich Bay from Marblehead to the New Hampshire,152:181,MA_State_Groundfish_June_MarbleheadtoNH
+73,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.4 Additional Groundfish Closures,SNE: October through January Closure in Massachusetts Bay and Upper Cape Cod Bay,274:31,MA_State_Groundfish_OcttoJan_PlytoMarblehead
+74,1 Gillnet,1.2 Anchor + Sink,1.2.1 Small Mesh <=5 in.,1.2.1.4 Additional Groundfish Closures,SNE: May Closure East of Cape Cod,121:151,MA_State_Groundfish_May_EastofCapeCodBay
+75,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: GOM Cod Protection I,121:151,GOM_Cod_Protection_I
+76,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: GOM Cod Protection II,152:181,GOM_Cod_Protection_II
+77,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: GOM Cod Protection III,305:31,GOM_Cod_Protection_III
+78,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: GOM Cod Protection IV,274:304,GOM_Cod_Protection_IV
+79,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: GOM Cod Protection V,60:90,GOM_Cod_Protection_V
+80,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: Cashes Ledge Groundfish Closure Area,1:365,CashesLedgeClosure
+81,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: Western GOM Groundfish Closure Area,1:365,Western_GOM_Closure_Area
+82,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM: Cape Cod Bay Restricted Area,1:120,Cape_Cod_Bay_Restricted_Area
+83,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GOM/GB: Great South Channel Restricted Gillnet Area,91:181,Great_South_Channel_Restricted_Gillnet_Area
+84,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GB: Closed Area II Closure Area,1:365,ClosedAreaII
+85,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,GB: Northeast Canyons and Seamounts Marine National Monument,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+86,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SNE: Mudhole North Management Area - Feb 15 - Mar 15,46:74,Mudhole_North_Management_Area
+87,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SNE: Mudhole South Management Area - Feb 15 - Mar 15,32:74,Mudhole_South_Management_Area
+88,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SNE: Georges Bank Deep-Sea Coral Protection Area,1:365,Georges_Bank_CoralProtectionArea
+89,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+90,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SE: Southeast Restricted Area North,319:105,Southeast_US_Restricted_Area_North
+91,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SE: Southeast Restricted Area South,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+92,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SE: Georgia State Waters,1:365,Georgia_statewaters_ALWTRP
+93,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.1 Medium Mesh,SE: Florida State Waters,1:365,Florida_statewaters_ALWTRP
+94,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.2 Additional Sink Closures,GOM: Stellwagen DHRA,1:365,Stellwagen_DHRA
+95,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,GOM: Northeast Closure Area (multi species),227:256,Northeast_Closure_Area
+96,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,GOM: Massachusetts Bay Management Area (multi species),60:90,Massachusetts_Bay_Management_Area
+97,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,GOM: Cashes Ledge Closure Area (multi species),32:59,Cashes_Ledge_Closure_Area
+98,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,"GOM: GOM Cod Spawning Protection Area ""whaleback"" (multi species)",91:181,GOM_CodSpawnClosedArea
+99,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,GOM: Winter Massachusetts Bay Spawning Protection Area (multi species),305:31,WinterMABay_SpawnProtectionArea
+100,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,GB: GB_ClosedAreaISeasonal (North) (multi species),32:105,GB_ClosedAreaISeasonal
+101,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,SNE: Cape Cod South Closure Area (multi species),60:90,Cape_Cod_South_Closure_Area
+102,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.3 Additional Multi Species Closures,SNE: Spring Massachusetts Bay Spawning Protection Area (multi species),105:120,Block125
+103,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.4 Additional Groundfish Closures,SNE: Massachusetts Bay from Plymouth to Marblehead,91:120,MA_State_Groundfish_Apr_PlytoMarblehead
+104,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.4 Additional Groundfish Closures,SNE: May in Massachusetts Bay from Boston to the New Hampshire Border,121:151,MA_State_Groundfish_May_BostoNH
+105,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.4 Additional Groundfish Closures,SNE: June in Upper Massachusetts Bay and Ipswich Bay from Marblehead to the New Hampshire,152:181,MA_State_Groundfish_June_MarbleheadtoNH
+106,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.4 Additional Groundfish Closures,SNE: October through January Closure in Massachusetts Bay and Upper Cape Cod Bay,274:31,MA_State_Groundfish_OcttoJan_PlytoMarblehead
+107,1 Gillnet,1.2 Anchor + Sink,1.2.2 Medium Mesh 5-7 in.,1.2.2.4 Additional Groundfish Closures,SNE: May Closure East of Cape Cod,121:151,MA_State_Groundfish_May_EastofCapeCodBay
+108,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: Cape Cod Bay Restricted Area,1:120,Cape_Cod_Bay_Restricted_Area
+109,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: GOM Cod Protection I,121:151,GOM_Cod_Protection_I
+110,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: GOM Cod Protection II,152:181,GOM_Cod_Protection_II
+111,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: GOM Cod Protection III,305:31,GOM_Cod_Protection_III
+112,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: GOM Cod Protection IV,274:304,GOM_Cod_Protection_IV
+113,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: GOM Cod Protection V,60:90,GOM_Cod_Protection_V
+114,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: Cashes Ledge Groundfish Closure Area,1:365,CashesLedgeClosure
+115,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM: Western GOM Groundfish Closure Area,1:365,Western_GOM_Closure_Area
+116,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GOM/GB: Great South Channel Restricted Gillnet Area,91:181,Great_South_Channel_Restricted_Gillnet_Area
+117,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GB: Northeast Canyons and Seamounts Marine National Monument,1:365,Northeast_Canyons_and_Seamounts_Marine_National_Monument
+118,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,GB: Closed Area II Closure Area,1:365,ClosedAreaII
+119,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SNE: Mudhole North Management Area - Feb 15 - Mar 15,46:74,Mudhole_North_Management_Area
+120,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SNE: Mudhole South Management Area - Feb 15 - Mar 15,32:74,Mudhole_South_Management_Area
+121,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SNE: Mudhole North Management Area - Apr 1 - Apr 20,91:110,Mudhole_North_Management_Area
+122,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SNE: Mudhole South Management Area - Apr 1 - Apr 20,91:110,Mudhole_South_Management_Area
+123,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SNE: Georges Bank Deep-Sea Coral Protection Area,1:365,Georges_Bank_CoralProtectionArea
+124,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+125,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Northern NC State - Apr 15 - Dec 15,"305:349,
+105:120",bdtrp_N_NC_po
+126,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Large Mesh Gillnet Restricted Waters (red),1:365,LargeMeshGillnet_AllYear
+127,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Large Mesh Gillnet Restricted Waters (yellow),75:14,LargeMeshGillnet_Mar16Jan14
+128,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Large Mesh Gillnet Restricted Waters (green),91:14,LargeMeshGillnet_Apr1Jan14
+129,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Large Mesh Gillnet Restricted Waters (blue),106:14,LargeMeshGillnet_Apr16Jan14
+130,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Waters off New Jersey Management Area,91:110,Waters_Off_New_Jersey_Management_Area
+131,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,MAB: Southern Mid-Atlantic Management Area,46:74,Southern_Mid-Atlantic_Management_Area
+132,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SE: Southeast Restricted Area North,319:105,Southeast_US_Restricted_Area_North
+133,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SE: Southeast Restricted Area South,"335:365,
+60:90",Southeast_US_Restricted_Area_South
+134,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SE: Georgia State Waters,1:365,Georgia_statewaters_ALWTRP
+135,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SE: Florida State Waters,1:365,Florida_statewaters_ALWTRP
+136,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.1 Large Mesh,SE: Southern NC State,105:349,bdtrp_S_NC_po
+137,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.2 Additional Sink Closures,GOM: Stellwagen DHRA,1:365,Stellwagen_DHRA
+138,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,GOM: Northeast Closure Area,227:256,Northeast_Closure_Area
+139,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,GOM: Massachusetts Bay Management Area,60:90,Massachusetts_Bay_Management_Area
+140,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,GOM: Cashes Ledge Closure Area,32:59,Cashes_Ledge_Closure_Area
+141,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,"GOM: GOM Cod Spawning Protection Area ""whaleback""",91:181,GOM_CodSpawnClosedArea
+142,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,GOM: Winter Massachusetts Bay Spawning Protection Area,305:31,WinterMABay_SpawnProtectionArea
+143,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,GB: GB_ClosedAreaISeasonal (North),32:105,GB_ClosedAreaISeasonal
+144,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,SNE: Spring Massachusetts Bay Spawning Protection Area,105:120,Block125
+145,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.3 Additional Multi Species Closures,SNE: Cape Cod South Closure Area,60:90,Cape_Cod_South_Closure_Area
+146,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.4 Additional Groundfish Closures,SNE: Massachusetts Bay from Plymouth to Marblehead,91:120,MA_State_Groundfish_Apr_PlytoMarblehead
+147,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.4 Additional Groundfish Closures,SNE: May in Massachusetts Bay from Boston to the New Hampshire Border,121:151,MA_State_Groundfish_May_BostoNH
+148,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.4 Additional Groundfish Closures,SNE: June in Upper Massachusetts Bay and Ipswich Bay from Marblehead to the New Hampshire,152:181,MA_State_Groundfish_June_MarbleheadtoNH
+149,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.4 Additional Groundfish Closures,SNE: October through January Closure in Massachusetts Bay and Upper Cape Cod Bay,274:31,MA_State_Groundfish_OcttoJan_PlytoMarblehead
+150,1 Gillnet,1.2 Anchor + Sink,1.2.3 Large Mesh >=7 in.,1.2.3.4 Additional Groundfish Closures,SNE: May Closure East of Cape Cod,121:151,MA_State_Groundfish_May_EastofCapeCodBay
+151,2 Trap/Pot,2.1 Lobster+Jonah Crab,GOM: Massachusetts Restricted Area (pre 2021),,,32:120,Massachusetts_Restricted_Area
+152,2 Trap/Pot,2.1 Lobster+Jonah Crab,GOM/GB: Great South Channel Restricted Trap/Pot Area,,,91:181,Great_South_Channel_Restricted_Trap-Pot_Area
+153,2 Trap/Pot,2.1 Lobster+Jonah Crab,GOM/GB: Outer Cape Area Seasonal Closure,,,32:90,OCC
+154,2 Trap/Pot,2.1 Lobster+Jonah Crab,SNE: Area 4 Seasonal Closure,,,120:151,LMA4
+155,2 Trap/Pot,2.1 Lobster+Jonah Crab,SNE: Area 5 Seasonal Closure,,,32:90,LMA5
+156,2 Trap/Pot,2.1 Lobster+Jonah Crab,SNE: Mobile Gear and Lobster Trap/Pot Restricted Gear Areas (RGAs) I,,,167:273,RGAI
+157,2 Trap/Pot,2.1 Lobster+Jonah Crab,SNE: Mobile Gear and Lobster Trap/Pot Restricted Gear Areas (RGAs) II,,,167:330,RGAII
+158,2 Trap/Pot,2.1 Lobster+Jonah Crab,SNE: Mobile Gear and Lobster Trap/Pot Restricted Gear Areas (RGAs) III,,,1:120,RGAIII
+159,2 Trap/Pot,2.1 Lobster+Jonah Crab,SE: Oculina Bank HAPC,,,1:365,OculinaBank_po
+160,2 Trap/Pot,2.2 Sea Bass,GOM: Massachusetts Restricted Area (pre 2021),,,32:120,Massachusetts_Restricted_Area
+161,2 Trap/Pot,2.2 Sea Bass,GOM/GB: Great South Channel Restricted Trap/Pot Area,,,91:181,Great_South_Channel_Restricted_Trap-Pot_Area
+162,2 Trap/Pot,2.2 Sea Bass,SNE: Georges Bank Deep-Sea Coral Protection Area,,,1:365,Georges_Bank_CoralProtectionArea
+163,2 Trap/Pot,2.2 Sea Bass,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,,,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+164,2 Trap/Pot,2.2 Sea Bass,SE: Black Sea Bass Pot Prohibited Area,,,1:365,sea_bass_pot_prohib
+165,2 Trap/Pot,2.2 Sea Bass,SE: Snapper grouper FMP Seasonal Black Sea Bass Pot Nov/Apr Prohibition,,,"305:334,
+91:120",BSB_Pot_Nov_Apr_po
+166,2 Trap/Pot,2.2 Sea Bass,SE: Snapper grouper FMP Seasonal Black Sea Bass Pot Dec-Mar Prohibition,,,335:90,BSB_Pot_Dec_Mar_po
+167,2 Trap/Pot,2.2 Sea Bass,SE: Oculina Bank HAPC,,,1:365,OculinaBank_po
+168,2 Trap/Pot,2.3 Other,GOM: Massachusetts Restricted Area (pre 2021),,,32:120,Massachusetts_Restricted_Area
+169,2 Trap/Pot,2.3 Other,GOM/GB: Great South Channel Restricted Trap/Pot Area,,,91:181,Great_South_Channel_Restricted_Trap-Pot_Area
+170,2 Trap/Pot,2.3 Other,SNE: Georges Bank Deep-Sea Coral Protection Area,,,1:365,Georges_Bank_CoralProtectionArea
+171,2 Trap/Pot,2.3 Other,MAB: Frank R. Lautenberg Deep-Sea Coral Protection Area,,,1:365,Frank_R_Lautenberg_Deep_Sea_Coral_Protection_Areas
+172,2 Trap/Pot,2.3 Other,SE: Oculina Bank HAPC,,,1:365,OculinaBank_po
