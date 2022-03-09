@@ -1,0 +1,14 @@
+name: dstclosuresregsapp
+title: DSTClosuresRegsApp
+username: alicia.miller
+account: alicia.miller
+server: connect.fisheries.noaa.gov
+hostUrl: https://connect.fisheries.noaa.gov/__api__
+appId: 103
+bundleId: 372
+url: https://connect.fisheries.noaa.gov/content/f6889fae-956d-4311-809c-b7dc0717fe45/
+when: 1646847446.22553
+lastSyncTime: 1646847446.22553
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ~$DSTSpatialAppTitleDesign.pptx|app_MarisaTest.R|DSTSpatialAppTitleDesign.pptx
