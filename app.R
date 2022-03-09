@@ -33,9 +33,9 @@ method.tabs <- tabsetPanel(
                        unique(sc.g3$region), selected = NULL, multiple = TRUE)
   ),
   tabPanel("Region",
-           selectInput("region2", "Select region(s):",
+           selectInput("region.a", "Select region(s):",
                        unique(sc.g3$region), selected = NULL, multiple = TRUE),
-           selectInput("geartype2", "Select gear type:",
+           selectInput("geartype.a", "Select gear type:",
                        choices =  c('GILLNET','TRAP/POT','GILLNET & TRAP/POT'), selected = NULL, multiple =FALSE)
 
   ),
@@ -56,7 +56,7 @@ method.tabs2 <- tabsetPanel(
                        choices = c(#"Lobster and Jonah crab trap/pot", 
                          "Other trap/pot"), 
                        selected = NULL, multiple = FALSE),
-           selectInput("regulation2", "Color by:",
+           selectInput("regulation.a", "Color by:",
                        choices = c("Trawl length", "Weak buoy line"),
                        selected = NULL, multiple = FALSE))
 )
@@ -71,10 +71,39 @@ ui <-
     zoom: 90%; /* Webkit browsers */
 }
               "),
-    titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),br(),title='Decision Support Tool Trap/Pot and Gillnet Spatial Closures'),
+    titlePanel(tagList(img(src = 'noaanefsclogo.PNG'),title=''),#br(),title='Decision Support Tool Closures and Regulations App'),
                tags$head(tags$link(rel = "icon", type = "image/png", href = "favicon.png"))
     ),
-      tabsetPanel(
+      tabsetPanel(id = "panels", #panels names the tab panel so it can be referenced for links to panels in ReadMe
+        tabPanel("ReadMe",
+                 tags$head(tags$style(
+                   type="text/css",
+                   "#image img {max-width: 100%; width: 100%; height: auto}"
+                 )),
+                 column(3, br(),
+                        img(src = "DSTClosuresAppTitle.png", height=500)),
+                 column(9,
+                        #Add help text here
+                        h3("About the App"),
+                        p(" This application was designed to provide background information about the fisheries regulations "
+                                 ," that apply to the Decision Support Tool (DST). The "
+                                 , a("DST", href="https://www.fisheries.noaa.gov/feature-story/decision-support-tool-helpful-those-finding-ways-reduce-whale-entanglement-fishing", target="_blank")
+                                 ," is designed to aid in the decision-making process involved in reducing serious injury "
+                                 , " and mortality in the North Atlantic right whale and other large whales at "
+                                 , " risk of entanglement from fixed gear fisheries. "),
+                        h3("Using the App"),
+                        p("Click the tabs at the top of the page to navigate to various functions within the app. The "
+                          , actionLink("link_to_tabpanel_SCM", "Spatial Closures Map"), "allows the user to query and view various fishing closures on an interactive map."
+                          , " Queries can be performed by a variety of different categories such as a range of dates, region, gear type, regulation type, or the user can "
+                          , "simply select from a list of all closures and map closures by name. The interactive map has zoom functionality and users can click "
+                          , "on a closure in the map to learn more information about the various restrictions that apply, timing, and any exemptions. In addition to the map, the"
+                          , actionLink("link_to_tabpanel_SCC", "Spatial Closure Categories"), "tab contains a dendrogram that categorizes closures in a stepwise fashion"
+                          , "as they apply to either gillnet or trap/pot fisheries and more detailed gear restrictions (gillnet type, mesh size, etc.) and species specific"
+                          , "restrictions (lobster pot vs. blue crab etc.) within each"
+                          , "spatial closure. The ", actionLink("link_to_tabpanel_GCM", "Gear Configurations Map"), "lets the user see closed area restrictions as they apply"
+                          , "to specific gear configurations within the gillnet (mesh size, number of nets, etc.) and lobster (weak buoy line, trawl length, etc.) fisheries.", sep=''))),
+                 
+                 
         tabPanel("Spatial Closures Map",
                  tags$div(tags$style(HTML( ".dropdown-menu{z-index:10000 !important;}"))),
                  fluidPage(
@@ -96,21 +125,18 @@ ui <-
                         wellPanel(
                           #Add help text here
                           h5(strong("Read Me")),
-                          p(  " This application is a tool to display and categorize "
-                              , " closures affecting gillnet and trap/pot fisheries in the Northwest Atlantic "
-                              , " that are implemented in the Decision Support Tool (DST). The "
-                              , a("DST", href="https://www.fisheries.noaa.gov/feature-story/decision-support-tool-helpful-those-finding-ways-reduce-whale-entanglement-fishing", target="_blank")
-                              ," is designed to aid in the decision-making process involved in reducing serious injury "
-                              , " and mortality in the North Atlantic right whale and other large whales at "
-                              , " risk of entanglement from fixed gear fisheries. To begin, select a method for subsetting closures "
-                              , " to be displayed in the map. Additional options for each method allow further "
-                              , " functionality. To display selections on the map click ", strong("SHOW CLOSURES")
-                              , " . For a more detailed breakdown of the fishery closures specific "
-                              , " to gear, such as gillnet type and mesh size, click the ", strong("Dendrogram")
+                          p(  " To begin, select a method for subsetting closures ( Ex.",strong("Date, Region, Regulation"),") or choose "
+                              , strong("Closure Name"), "to select one or many closures by name "
+                              , " to be displayed in the map. Additional options will be displayed for each method and allow further "
+                              , " functionality. To display selections on the map click ", strong("SHOW CLOSURES.")
+                              , " The interactive map allows the ability to zoom and pan while providing additional information about "
+                              , " closure details in a pop-up when clicked."
+                              , " For a more detailed breakdown of the fishery closures specific "
+                              , " to gear, such as gillnet type and mesh size, click the ", actionLink("link_to_tabpanel_SCC2", "Spatial Closure Categories")
                               , " tab."))
                             )
                         ))),
-        tabPanel("Dendrogram",
+        tabPanel("Spatial Closure Categories",
                  br(),
                  collapsibleTreeOutput("plot", height = "500px")),
         tabPanel("Gear Configurations Map",
@@ -120,7 +146,7 @@ ui <-
                      column(3,
                             br(),
                             wellPanel(
-                              selectInput("geartype3", "Select gear type:",
+                              selectInput("method2", "Select gear type:",
                                           choices =  c('GILLNET','TRAP/POT')),
                               method.tabs2,
                               actionButton("runBtn2","SHOW AREAS", icon("cogs"),
@@ -130,7 +156,8 @@ ui <-
                      column(7,
                             br(),
                             shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'success',
-                                                leafletOutput('base_map2',width="100%",height="80vh")))
+                                                leafletOutput('base_map2',width="100%",height="80vh"))),
+                     
                    )))
              )
   )
@@ -158,8 +185,24 @@ server <- function(input, output, session) {
       addProviderTiles(providers$Esri.OceanBasemap) %>%
       addScaleBar(position = 'bottomright', options = scaleBarOptions(maxWidth = 250))
   })
-  
-  
+  # Provides link to tabs from ReadMe
+  observeEvent(input$link_to_tabpanel_SCM, {
+    newvalue <- "Spatial Closures Map"
+    updateTabsetPanel(session, "panels", newvalue)
+  })
+  observeEvent(input$link_to_tabpanel_SCC, {
+    newvalue <- "Spatial Closure Categories"
+    updateTabsetPanel(session, "panels", newvalue)
+  })
+  observeEvent(input$link_to_tabpanel_SCC2, {
+    newvalue <- "Spatial Closure Categories"
+    updateTabsetPanel(session, "panels", newvalue)
+  })
+  observeEvent(input$link_to_tabpanel_GCM, {
+    newvalue <- "Gear Configurations Map"
+    updateTabsetPanel(session, "panels", newvalue)
+  })
+  # Structure for reactive UI described above the ui code
   observeEvent(input$method, {
     updateTabsetPanel(inputId = "params", selected = input$method)
   }) 
@@ -195,11 +238,11 @@ server <- function(input, output, session) {
                                     shapename %in% gearsub)
                   },
                Region = {
-                 if(input$geartype2 == 'GILLNET') gearsub2 <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
-                 if(input$geartype2 == 'TRAP/POT') gearsub2 <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
-                 if(input$geartype2 == 'GILLNET & TRAP/POT') gearsub2 <- sc.g3$shapename
+                 if(input$geartype.a == 'GILLNET') gearsub2 <- sc.g3[grep('Gill',sc.g3$gear_type),'shapename']
+                 if(input$geartype.a == 'TRAP/POT') gearsub2 <- sc.g3[grep('Trap|trap',sc.g3$gear_type),'shapename']
+                 if(input$geartype.a == 'GILLNET & TRAP/POT') gearsub2 <- sc.g3$shapename
                  Region =  sc.g3 %>%
-                   dplyr::filter(region %in% input$region2 & # by region
+                   dplyr::filter(region %in% input$region.a & # by region
                                    shapename %in% gearsub2)
                  },
                Regulation = {
@@ -243,13 +286,13 @@ server <- function(input, output, session) {
 })
 
   
-observeEvent(input$geartype3, {
-  updateTabsetPanel(inputId = "params2", selected = input$geartype3)
+observeEvent(input$method2, {
+  updateTabsetPanel(inputId = "params2", selected = input$method2)
 })
 
 observeEvent(input$runBtn2,{
 
-  gc1sub <- switch(input$geartype3,
+  gc1sub <- switch(input$method2,
                    'GILLNET' = {
                      gc1.a = droplevels(gc1[grepl("gill",gc1$gear_type),])
                    },
@@ -260,8 +303,8 @@ observeEvent(input$runBtn2,{
   )
   if(input$regulation == "Seasonal") col.by  <- gc1sub$seasonal
   if(input$regulation == "Number of nets") col.by <- gc1sub$min_string_length
-  if(input$regulation2 == "Trawl length") col.by  <- gc1sub$min_string_length
-  if(input$regulation2 == "Weak buoy line") col.by <- gc1sub$max_buoy_line_strength
+  if(input$regulation.a == "Trawl length") col.by  <- gc1sub$min_string_length
+  if(input$regulation.a == "Weak buoy line") col.by <- gc1sub$max_buoy_line_strength
   
   print(head(gc1sub))
   print(col.by)
