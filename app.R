@@ -7,14 +7,17 @@ library(magrittr)
 library(collapsibleTree)
 library(viridis)
 
+####Inputs####
 ## Dendrogram Setup: 
-all_closures <- read.csv("closures_categories6c.csv")
+all_closures <- read.csv("closures_categories0302.csv")
 # building colors list
-colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
-colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
+# colfunc <- colorRampPalette(c("royalblue3", "lightsteelblue3", "palegreen4", "greenyellow", "gold"))
+# colorslist <- rep(colfunc(5), times = c(3,4,9,48,90))
 #add a palette for the shapefiles and show the legend on the base map
 pal <-  colorFactor(palette = viridis_pal(option='inferno')(6), domain = c("Sea Turtles", "Marine Mammal", 
-                                                     "New Marine Mammal", "Fishery", "Habitat", "State"))
+                                                   "New Marine Mammal", "Fishery", "Habitat", "State"))
+
+####Dynamic UI Code####
 ## Make dynamic ui for method of closure selection:
 method.tabs <- tabsetPanel(
   id = "params",
@@ -46,13 +49,13 @@ method.tabs <- tabsetPanel(
 method.tabs2 <- tabsetPanel(
   id = "params2",
   type = "hidden",
-  tabPanel("GILLNET",
+  tabPanel("Gillnet",
            selectInput("regulation", "Color by:",
                        choices = c("Seasonal", "Number of nets"), selected = NULL, multiple = FALSE)
   ),
-  tabPanel("TRAP/POT",
+  tabPanel("TrapPot",
            selectInput("fishery", "Fishery:",
-                       choices = c(#"Lobster and Jonah crab trap/pot", 
+                       choices = c("Lobster and Jonah crab trap/pot", 
                          "Other trap/pot"), 
                        selected = NULL, multiple = FALSE),
            selectInput("regulation.a", "Color by:",
@@ -60,7 +63,7 @@ method.tabs2 <- tabsetPanel(
                        selected = NULL, multiple = FALSE))
 )
 
-## UI ------------------------------------------------------------------------------
+####UI####------------------------------------------------------------------------------
 ui <- 
   fluidPage(
   tags$style("
@@ -146,7 +149,7 @@ ui <-
                             br(),
                             wellPanel(
                               selectInput("method2", "Select gear type:",
-                                          choices =  c('GILLNET','TRAP/POT')),
+                                          choices =  c('Gillnet','TrapPot')),
                               method.tabs2,
                               actionButton("runBtn2","SHOW AREAS", icon("cogs"),
                                            style="color: black; background-color: green; border-color: grey")
@@ -161,8 +164,10 @@ ui <-
              )
   )
 
-## Server---------------------------------------------------------------------------
+####Server####---------------------------------------------------------------------------
 server <- function(input, output, session) {
+  
+  ####Closure Map Server Code####
   ###### LEAFLET BASE MAP for when app initially loads  
   output$base_map = renderLeaflet({
     # Makes a leaflet map to visualize management areas
@@ -267,21 +272,23 @@ server <- function(input, output, session) {
 
 
       })
-  
-    # building dendrogram 
+    
+  ####Dendrogram Server Code####
+    #building dendrogram
   output$plot <- renderCollapsibleTree({
     collapsibleTree(
     all_closures,
-    hierarchy = c("GearType", "Method", "Mesh", "Closures", "Groundfish"),
+    hierarchy = c("GearType", "Method", "Mesh", "Closures"),
     root = "All Closures", 
     attribute = "leafCount", tooltip=F, 
-    linkLength = 170,
+    linkLength = 200,
     width = 1400, height = 700, fontSize = 12,
     #fill = colorslist,
     fillByLevel = TRUE
   )
 })
 
+  ####Gear Configuration Server Code####
 observeEvent(input$method2, {
   updateTabsetPanel(inputId = "params2", selected = input$method2)
 })
@@ -289,19 +296,36 @@ observeEvent(input$method2, {
 observeEvent(input$runBtn2,{
 
   gc1sub <- switch(input$method2,
-                   'GILLNET' = {
+                   Gillnet = {
                      gc1.a = droplevels(gc1[grepl("gill",gc1$gear_type),])
                    },
-                   'TRAP/POT' = {
-                     gc1.a = droplevels(gc1[grepl("other", gc1$fishery) & 
-                                                grepl("trap",gc1$gear_type),]) 
+                   TrapPot = {
+                    if(input$fishery == "Lobster and Jonah crab trap/pot") trapsub <- droplevels(gc1[grepl("lobster",gc1$fishery) & 
+                                                                 grepl("trap",gc1$gear_type),])
+                   if(input$fishery == "Other trap/pot") trapsub <- droplevels(gc1[grepl("other", gc1$fishery) & 
+                                                grepl("trap",gc1$gear_type),])
+                     gc1.a = trapsub
                    }
   )
-  if(input$regulation == "Seasonal") col.by  <- gc1sub$seasonal
-  if(input$regulation == "Number of nets") col.by <- gc1sub$min_string_length
-  if(input$regulation.a == "Trawl length") col.by  <- gc1sub$min_string_length
-  if(input$regulation.a == "Weak buoy line") col.by <- gc1sub$max_buoy_line_strength
   
+  # if(input$regulation == "Seasonal") col.by  <- gc1sub$seasonal
+  # if(input$regulation == "Number of nets") col.by <- gc1sub$min_string_length
+  # if(input$regulation.a == "Trawl length") col.by  <- gc1sub$min_string_length
+  # if(input$regulation.a == "Weak buoy line") col.by <- gc1sub$max_buoy_line_strength
+
+  col.by <- switch(input$method2,
+               'Gillnet' = {
+                   if(input$regulation == "Seasonal") gillcol  <- gc1sub$seasonal
+                   if(input$regulation == "Number of nets") gillcol <- gc1sub$min_string_length
+                   col.a = gillcol
+               },
+               'TrapPot' = {
+                   if(input$regulation.a == "Trawl length") trapcol  <- gc1sub$min_string_length
+                   if(input$regulation.a == "Weak buoy line") trapcol <- gc1sub$max_buoy_line_strength
+                   col.a = trapcol
+               }
+               )
+
   print(head(gc1sub))
   print(col.by)
   #clear any previous shapefiles selected
