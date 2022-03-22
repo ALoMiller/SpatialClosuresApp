@@ -128,8 +128,8 @@ ui <-
                          selectInput("method", "Display closed areas by:",
                                      choices = c("Closure","Date","Region","Regulation")),
                                      method.tabs,
-                         br(),
-                         actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey"),
+                         actionButton("runBtn","SHOW CLOSURES", icon("cogs"), style="color: black; background-color: orange; border-color: grey")
+                       ),
                        wellPanel(
                           #Add help text here
                          h5(strong("Read Me")),
@@ -144,7 +144,7 @@ ui <-
                                , " shape you are trying to inspect. For a more detailed breakdown of the fishery closures specific "
                                , " to gear, such as gillnet type and mesh size, click the ", actionLink("link_to_tabpanel_SCC2", "Spatial Closure Categories")
                                , " tab.", sep = ''))
-                       )),
+                       ),
                      column(9,
                         br(),
                         shinydashboard::box(width = NULL, solidHeader = TRUE, status = 'primary',
