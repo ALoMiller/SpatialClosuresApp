@@ -8,7 +8,7 @@ gc <- googlesheets4::read_sheet('https://docs.google.com/spreadsheets/d/1GqDY445
 gc <- janitor::clean_names(gc) #probably unnecessary
 gc$seasonal <- as.factor(gc$seasonal)
 gc$min_string_length <- as.factor(gc$min_string_length)
-gc$min_string_length <- factor(gc$min_string_length, levels = c("No Minimum", "2 per buoy line", "3 per buoy line", "5 per buoy line",
+gc$min_string_length <- factor(gc$min_string_length, levels = c("No Minimum","No Trawls", "2 per buoy line", "3 per buoy line", "5 per buoy line",
                                                                 "8 per two buoy lines", "10 per two buoy lines", "15 per two buoy lines",
                                                                 "15 Mar-Oct, 20 Nov-Feb per two buoy lines", "20 per two buoy lines",
                                                                 "25 per two buoy lines", "35 per two buoy lines", "45 per two buoy lines",
